@@ -1,0 +1,25 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: service-ws
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/chat?serverTimezone=GMT%2B8
+    username: root
+    password: hahaha
+  redis:
+    host: 39.105.58.223
+    port: 6379
+    database: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

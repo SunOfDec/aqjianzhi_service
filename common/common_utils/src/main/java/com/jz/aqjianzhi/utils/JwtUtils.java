@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Enumeration;
 
 public class JwtUtils {
 
@@ -74,6 +75,12 @@ public class JwtUtils {
      * @return
      */
     public static String getMemberIdByJwtToken(HttpServletRequest request) {
+        /*
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            System.out.println(headerNames.nextElement());
+        }*/
+
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
         Jws<Claims> claimsJws =

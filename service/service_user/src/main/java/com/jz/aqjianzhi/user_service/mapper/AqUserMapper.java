@@ -2,6 +2,7 @@ package com.jz.aqjianzhi.user_service.mapper;
 
 import com.jz.aqjianzhi.user_service.entity.AqUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jz.aqjianzhi.user_service.entity.vo.QueryUserInfoByTokenVo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface AqUserMapper extends BaseMapper<AqUser> {
 
+    QueryUserInfoByTokenVo queryUserInfoByToken(Long uId);
 }

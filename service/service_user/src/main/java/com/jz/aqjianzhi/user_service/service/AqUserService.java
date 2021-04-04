@@ -2,6 +2,8 @@ package com.jz.aqjianzhi.user_service.service;
 
 import com.jz.aqjianzhi.user_service.entity.AqUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jz.aqjianzhi.user_service.entity.vo.LoginVo;
+import com.jz.aqjianzhi.user_service.entity.vo.QueryUserInfoByTokenVo;
 import com.jz.aqjianzhi.user_service.entity.vo.RegisterVo;
 
 /**
@@ -14,7 +16,9 @@ import com.jz.aqjianzhi.user_service.entity.vo.RegisterVo;
  */
 public interface AqUserService extends IService<AqUser> {
 
-    String login(AqUser user);
+    String login(LoginVo userVo);
 
     void register(RegisterVo registerVo);
+
+    QueryUserInfoByTokenVo queryUserInfoByToken(Long uId);
 }

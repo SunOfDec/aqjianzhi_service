@@ -4,6 +4,8 @@ package com.jz.aqjianzhi.user_service.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jz.aqjianzhi.user_service.entity.AqUser;
+import com.jz.aqjianzhi.user_service.entity.vo.LoginVo;
+import com.jz.aqjianzhi.user_service.entity.vo.QueryUserInfoByTokenVo;
 import com.jz.aqjianzhi.user_service.entity.vo.RegisterVo;
 import com.jz.aqjianzhi.user_service.entity.vo.UserQuery;
 import com.jz.aqjianzhi.user_service.service.impl.AqUserServiceImpl;
@@ -147,9 +149,10 @@ public class AqUserController {
      * 登录
      */
     @PostMapping("/login")
-    public R login(@RequestBody AqUser user) {
+    public R login(@RequestBody LoginVo userVo) {
+        System.out.println(userVo);
         // 返回token值
-        String token = userService.login(user);
+        String token = userService.login(userVo);
         return R.ok().data("token", token);
     }
 
@@ -169,8 +172,8 @@ public class AqUserController {
     public R getUserInfo(HttpServletRequest request) {
         // 根据request对象获取头信息，从token中获取用户id
         String userID = JwtUtils.getMemberIdByJwtToken(request);
-        AqUser user = userService.getById(Long.parseLong(userID));
-        return R.ok().data("userInfo", user);
+        QueryUserInfoByTokenVo userInfo = userService.queryUserInfoByToken(Long.valueOf(userID));
+        return R.ok().data("userInfo", userInfo);
     }
 }
 

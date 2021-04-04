@@ -22,7 +22,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("D:\\JavaProject\\aqjianzhi\\aqjianzhi_service\\service\\service_user" + "/src/main/java");
+        gc.setOutputDir("D:\\JavaProject\\aqjianzhi\\aqjianzhi_service\\service\\service_task" + "/src/main/java");
 
         gc.setAuthor("xyk");
         gc.setOpen(false); //生成后是否打开资源管理器
@@ -39,10 +39,10 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://39.105.58.223:3306/aqjianzhi?serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://localhost/chat?serverTimezone=GMT%2B8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("hahaha");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
@@ -50,7 +50,7 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.jz.aqjianzhi");
         //包  com.jz.aqjianzhi.user_service
-        pc.setModuleName("user_service"); //模块名
+        pc.setModuleName("task_service"); //模块名
         //包  com.jz.user_service.controller
         pc.setController("controller");
         pc.setEntity("entity");
@@ -61,7 +61,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("aq_user");  // 表名称
+        strategy.setInclude("aq_task");  // 表名称
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

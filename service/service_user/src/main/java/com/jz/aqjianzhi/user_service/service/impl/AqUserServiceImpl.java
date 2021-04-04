@@ -3,6 +3,8 @@ package com.jz.aqjianzhi.user_service.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jz.aqjianzhi.service_base.exception.AqException;
 import com.jz.aqjianzhi.user_service.entity.AqUser;
+import com.jz.aqjianzhi.user_service.entity.vo.LoginVo;
+import com.jz.aqjianzhi.user_service.entity.vo.QueryUserInfoByTokenVo;
 import com.jz.aqjianzhi.user_service.entity.vo.RegisterVo;
 import com.jz.aqjianzhi.user_service.mapper.AqUserMapper;
 import com.jz.aqjianzhi.user_service.service.AqUserService;
@@ -30,27 +32,27 @@ public class AqUserServiceImpl extends ServiceImpl<AqUserMapper, AqUser> impleme
 
     /**
      * 用户登录
-     * @param user
+     * @param userVo
      * @return token值，token携带用户id与用户账号
      */
     @Override
-    public String login(AqUser user) {
-        String mobile = user.getUMobile();
-        String password = user.getUPassword();
-        if (!StringUtils.hasLength(mobile) || !StringUtils.hasLength(password)) {
+    public String login(LoginVo userVo) {
+        String account = userVo.getAccount();
+        String password = userVo.getPassword();
+        if (!StringUtils.hasLength(account) || !StringUtils.hasLength(password)) {
             throw  new AqException(20001, "登录失败！请检查账号或密码是否正确！");
         }
         QueryWrapper<AqUser> wrapper = new QueryWrapper<>();
-        wrapper.eq("u_mobile", mobile);
+        wrapper.eq("u_mobile", account);
         AqUser baseUser = baseMapper.selectOne(wrapper);
         if (baseUser == null) {
             throw  new AqException(20001, "登录失败！请检查账号或密码是否正确！");
         }
         if (!MD5.encrypt(password).equals(baseUser.getUPassword())) {
-            throw  new AqException(20001, "抱歉！您的账户被禁用！");
+            throw  new AqException(20001, "登录失败！请检查账号或密码是否正确！");
         }
         if (!baseUser.getIsActive()) {
-            throw  new AqException(20001, "登录失败！请检查账号或密码是否正确！");
+            throw  new AqException(20001, "抱歉！您的账户被禁用！");
         }
 
         return JwtUtils.getJwtToken(String.valueOf(baseUser.getUId()), baseUser.getUMobile());
@@ -63,22 +65,22 @@ public class AqUserServiceImpl extends ServiceImpl<AqUserMapper, AqUser> impleme
     @Override
     public void register(RegisterVo registerVo) {
         String code = registerVo.getCode();
-        String mobile = registerVo.getMobile();
+        String account = registerVo.getAccount();
         String password = registerVo.getPassword();
 
-        if (!StringUtils.hasLength(mobile) || !StringUtils.hasLength(password) || !StringUtils.hasLength(code)) {
+        if (!StringUtils.hasLength(account) || !StringUtils.hasLength(password) || !StringUtils.hasLength(code)) {
             throw  new AqException(20001, "注册失败，手机号、密码、验证码不能为空！");
         }
 
         // 获取Redis中的验证码
-        String redisCode = redisTemplate.opsForValue().get(mobile);
+        String redisCode = redisTemplate.opsForValue().get(account);
         if (!code.equals(redisCode)) {
             throw  new AqException(20001, "注册失败");
         }
 
         // 判断注册账号是否已经存在
         QueryWrapper<AqUser> wrapper = new QueryWrapper<>();
-        wrapper.eq("u_mobile", mobile);
+        wrapper.eq("u_mobile", account);
         Integer integer = baseMapper.selectCount(wrapper);
         if (integer > 0) {
             throw  new AqException(20001, "注册失败");
@@ -86,9 +88,14 @@ public class AqUserServiceImpl extends ServiceImpl<AqUserMapper, AqUser> impleme
 
         // 将数据添加到数据库中
         AqUser user = new AqUser();
-        user.setUMobile(mobile);
+        user.setUMobile(account);
         user.setUPassword(MD5.encrypt(password));
         user.setIsActive(true);
         baseMapper.insert(user);
+    }
+
+    @Override
+    public QueryUserInfoByTokenVo queryUserInfoByToken(Long uId) {
+        return baseMapper.queryUserInfoByToken(uId);
     }
 }

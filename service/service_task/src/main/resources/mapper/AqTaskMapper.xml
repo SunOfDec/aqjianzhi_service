@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.aqjianzhi.task_service.mapper.AqTaskMapper">
+
+    <!--order by t.update_time desc-->
+    <select id="pageQueryAllTaskForMultiTable" resultType="com.jz.aqjianzhi.task_service.entity.vo.QueryTaskVo">
+        select t.t_id, t.t_name, t.t_detail, t.t_price, tc.category, tp.passageway, tt.transaction, ts.state,
+        t.is_finish, t.finish_time, t.t_see_num, t.t_like_num, t.t_comment_num, t.create_time, t.update_time,
+        u.u_name, u.u_icon
+        from aq_task as t, aq_task_category as tc, aq_task_passageway as tp, aq_task_transaction as tt, aq_task_state as ts,
+        aq_user as u
+        where t.category_id = tc.c_id
+        and t.passageway_id = tp.p_id
+        and t.transaction_id = tt.t_id
+        and t.state_id = ts.s_id
+        and t.user_publish_id = u.u_id
+        order by t.update_time desc, t.t_id desc
+    </select>
+
+</mapper>

@@ -35,7 +35,7 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
       debug: true
 
-  cloud:  #nacos服务地址
-    nacos:
-      discovery:
-        server-addr: 39.105.58.223:8848
+#  cloud:  #nacos服务地址
+#    nacos:
+#      discovery:
+#        server-addr: 39.105.58.223:8848

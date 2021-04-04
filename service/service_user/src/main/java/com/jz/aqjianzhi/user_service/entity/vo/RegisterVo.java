@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RegisterVo {
 
-    private String mobile;
+    private String account;
 
     private String password;
 
