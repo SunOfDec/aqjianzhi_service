@@ -172,7 +172,7 @@ public class AqUserController {
     public R getUserInfo(HttpServletRequest request) {
         // 根据request对象获取头信息，从token中获取用户id
         String userID = JwtUtils.getMemberIdByJwtToken(request);
-        QueryUserInfoByTokenVo userInfo = userService.queryUserInfoByToken(Long.valueOf(userID));
+        QueryUserInfoByTokenVo userInfo = userService.queryUserInfoByToken(userID);
         return R.ok().data("userInfo", userInfo);
     }
 }

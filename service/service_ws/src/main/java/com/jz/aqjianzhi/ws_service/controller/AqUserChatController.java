@@ -17,5 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ws_service/aq-user-chat")
 public class AqUserChatController {
 
+
+
 }
 

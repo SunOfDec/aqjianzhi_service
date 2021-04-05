@@ -95,7 +95,7 @@ public class AqUserServiceImpl extends ServiceImpl<AqUserMapper, AqUser> impleme
     }
 
     @Override
-    public QueryUserInfoByTokenVo queryUserInfoByToken(Long uId) {
+    public QueryUserInfoByTokenVo queryUserInfoByToken(String uId) {
         return baseMapper.queryUserInfoByToken(uId);
     }
 }

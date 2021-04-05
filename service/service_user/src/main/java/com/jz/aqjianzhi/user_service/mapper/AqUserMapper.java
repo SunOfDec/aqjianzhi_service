@@ -14,5 +14,5 @@ import com.jz.aqjianzhi.user_service.entity.vo.QueryUserInfoByTokenVo;
  */
 public interface AqUserMapper extends BaseMapper<AqUser> {
 
-    QueryUserInfoByTokenVo queryUserInfoByToken(Long uId);
+    QueryUserInfoByTokenVo queryUserInfoByToken(String uId);
 }

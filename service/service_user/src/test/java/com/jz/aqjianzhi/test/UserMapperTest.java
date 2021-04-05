@@ -18,7 +18,7 @@ public class UserMapperTest {
 
     @Test
     public void testMapper1() {
-        QueryUserInfoByTokenVo userInfo = userMapper.queryUserInfoByToken((long) 1);
+        QueryUserInfoByTokenVo userInfo = userMapper.queryUserInfoByToken("1");
         System.out.println(userInfo);
     }
 }

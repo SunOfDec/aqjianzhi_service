@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class QueryUserInfoByTokenVo {
 
-    private Long uId;
+    private String uId;
 
     private String uMobile;
 

@@ -29,14 +29,14 @@ public class AqTask implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "t_id", type = IdType.ID_WORKER)
-    private Long tId;
+    @TableId(value = "t_id", type = IdType.ID_WORKER_STR)
+    private String tId;
 
     private String tName;
 
-    private Long userPublishId;
+    private String userPublishId;
 
-    private Long userReceiveId;
+    private String userReceiveId;
 
     private String tDetail;
 

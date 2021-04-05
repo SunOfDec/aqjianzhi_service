@@ -1,4 +1,4 @@
-package com.jz.aqjianzhi.user_service.entity;
+package com.jz.aqjianzhi.task_service.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
@@ -17,26 +17,28 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author xyk
- * @since 2021-03-28
+ * @since 2021-04-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="AqUser对象", description="")
-public class AqUser implements Serializable {
+@ApiModel(value="AqTaskComment对象", description="")
+public class AqTaskComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "u_id", type = IdType.ID_WORKER_STR)
-    private String uId;
+    @TableId(value = "c_id", type = IdType.ID_WORKER_STR)
+    private String cId;
 
-    private String uMobile;
+    private String taskId;
 
-    private String uName;
+    private String userId;
 
-    private String uPassword;
+    private Integer cLevel;
 
-    private String uIcon;
+    private String cContent;
+
+    private Integer cLikeNum;
 
     @TableField(fill = FieldFill.INSERT)  // 自动填充
     private Date createTime;
@@ -44,32 +46,8 @@ public class AqUser implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)  // 自动填充
     private Date updateTime;
 
-    private Boolean isActive;
-
     @TableLogic  // 逻辑删除注解
     private Boolean isDelete;
-
-    private String uRealName;
-
-    private String uGender;
-
-    private Integer uAge;
-
-    private String uEmail;
-
-    private Integer uStatus;
-
-    private String uAddress;
-
-    private String uDetail;
-
-    private String uIdNumber;
-
-    private String uStuNumber;
-
-    private Long uKMount;
-
-    private Integer uCredit;
 
 
 }

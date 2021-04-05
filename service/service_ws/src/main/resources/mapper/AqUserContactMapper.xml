@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.aqjianzhi.ws_service.mapper.AqUserContactMapper">
+
+    <select id="getAllContact" parameterType="string" resultType="com.jz.aqjianzhi.ws_service.entity.vo.ContactVo">
+      select c.c_id, c.session_id, u.u_mobile, u.u_name, u.u_icon, c.user_contact_id
+      from aq_user as u, aq_user_contact as c
+      where u.u_id = c.user_contact_id
+      and c.user_id=#{arg0};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jz.aqjianzhi.task_service.mapper.AqTaskCommentMapper">
+
+    <select id="pageQueryCommentById" parameterType="string" resultType="com.jz.aqjianzhi.task_service.entity.vo.QueryCommentVo">
+        select c.c_id, u.u_id, u.u_name, u.u_icon, c.c_content, c.update_time
+        from aq_user as u, aq_task_comment as c
+        where c.task_id = #{arg1} and c.user_id = u.u_id
+        order by c.update_time desc, c.c_id desc
+    </select>
+
+
+</mapper>

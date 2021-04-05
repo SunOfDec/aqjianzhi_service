@@ -1,10 +1,13 @@
 package com.jz.aqjianzhi.ws_service.service.impl;
 
 import com.jz.aqjianzhi.ws_service.entity.AqUserContact;
+import com.jz.aqjianzhi.ws_service.entity.vo.ContactVo;
 import com.jz.aqjianzhi.ws_service.mapper.AqUserContactMapper;
 import com.jz.aqjianzhi.ws_service.service.AqUserContactService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AqUserContactServiceImpl extends ServiceImpl<AqUserContactMapper, AqUserContact> implements AqUserContactService {
 
+    @Override
+    public List<ContactVo> getAllContact(String uId) {
+        return baseMapper.getAllContact(uId);
+    }
 }

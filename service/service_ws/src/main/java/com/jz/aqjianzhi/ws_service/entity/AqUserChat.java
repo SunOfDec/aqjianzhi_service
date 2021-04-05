@@ -27,18 +27,18 @@ public class AqUserChat implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "c_id", type = IdType.ID_WORKER)
-    private Long cId;
+    @TableId(value = "c_id", type = IdType.ID_WORKER_STR)
+    private String cId;
 
-    private Long sessionId;
+    private String sessionId;
 
     private String cMessage;
 
     private Long cLevel;
 
-    private Long cSendUserId;
+    private String cSendUserId;
 
-    private Long cReceiveUserId;
+    private String cReceiveUserId;
 
     @TableField(fill = FieldFill.INSERT)  // 自动填充
     private Date createTime;

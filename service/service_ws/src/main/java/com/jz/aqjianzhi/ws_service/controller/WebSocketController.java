@@ -1,8 +1,10 @@
 package com.jz.aqjianzhi.ws_service.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 
 import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
@@ -11,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
-@ServerEndpoint("/websocket/{uId}")
+@ServerEndpoint("/websocket002/{uId}")
 public class WebSocketController {
 
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -47,6 +49,13 @@ public class WebSocketController {
             subOnlineCount();     //在线数减1
             System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
         }
+    }
+
+    @OnMessage
+    public void onMessage(String msg, Session session) {
+        /*JSONObject jsonMsg = JSONObject.parseObject(msg);
+        System.out.println(jsonMsg);*/
+        System.out.println(msg);
     }
 
 

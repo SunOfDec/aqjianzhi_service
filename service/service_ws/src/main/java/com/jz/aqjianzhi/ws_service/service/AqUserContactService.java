@@ -2,6 +2,9 @@ package com.jz.aqjianzhi.ws_service.service;
 
 import com.jz.aqjianzhi.ws_service.entity.AqUserContact;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jz.aqjianzhi.ws_service.entity.vo.ContactVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AqUserContactService extends IService<AqUserContact> {
 
+    List<ContactVo> getAllContact(String uId);
 }

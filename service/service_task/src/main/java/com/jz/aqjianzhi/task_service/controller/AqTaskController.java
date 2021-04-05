@@ -27,7 +27,7 @@ public class AqTaskController {
     @Autowired
     private AqTaskService taskService;
 
-    @PutMapping("/addTask")
+    @PostMapping("/addTask")
     public R addTask(@RequestBody AqTask task) {
         taskService.save(task);
         return R.ok();
@@ -55,8 +55,21 @@ public class AqTaskController {
         Page<QueryTaskVo> taskPage = taskService.pageQueryAllTaskForMultiTable(new Page<>(current, size));
         /*long total = taskPage.getTotal();
         List<QueryTaskVo> records = taskPage.getRecords();*/
+//        List<QueryTaskVo> records = taskPage.getRecords();
+
 
         return R.ok().data("taskPage", taskPage);
+    }
+
+    @PutMapping("/addCommentNum/{tId}")
+    public R addCommentNum(@PathVariable String tId) {
+        AqTask task = taskService.getById(tId);
+        task.setTCommentNum(task.getTCommentNum() + 1);
+//        boolean update = taskService.update(task, null);
+//        taskService.up
+        boolean update = taskService.updateById(task);
+
+        return update ? R.ok() : R.error();
     }
 
 }

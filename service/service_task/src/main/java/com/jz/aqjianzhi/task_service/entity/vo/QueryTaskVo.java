@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 public class QueryTaskVo {
 
-    private Long tId;
+    private String tId;
 
     private String tName;
 
@@ -41,4 +41,6 @@ public class QueryTaskVo {
     private String uName;
 
     private String uIcon;
+
+    private String userPublishId;
 }

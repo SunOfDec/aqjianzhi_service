@@ -27,12 +27,14 @@ public class AqUserContact implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "c_id", type = IdType.ID_WORKER)
-    private Long cId;
+    @TableId(value = "c_id", type = IdType.ID_WORKER_STR)
+    private String cId;
 
-    private Long userId;
+    private String sessionId;
 
-    private Long userContactId;
+    private String userId;
+
+    private String userContactId;
 
     @TableField(fill = FieldFill.INSERT)  // 自动填充
     private Date createTime;

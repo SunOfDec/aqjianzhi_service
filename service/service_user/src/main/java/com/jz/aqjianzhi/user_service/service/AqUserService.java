@@ -20,5 +20,5 @@ public interface AqUserService extends IService<AqUser> {
 
     void register(RegisterVo registerVo);
 
-    QueryUserInfoByTokenVo queryUserInfoByToken(Long uId);
+    QueryUserInfoByTokenVo queryUserInfoByToken(String uId);
 }
