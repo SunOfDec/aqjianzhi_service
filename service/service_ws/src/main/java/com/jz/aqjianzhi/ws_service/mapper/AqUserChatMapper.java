@@ -2,7 +2,10 @@ package com.jz.aqjianzhi.ws_service.mapper;
 
 import com.jz.aqjianzhi.ws_service.entity.AqUserChat;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jz.aqjianzhi.ws_service.entity.vo.LastMessageVo;
+import com.jz.aqjianzhi.ws_service.entity.vo.MessageVo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,5 +17,10 @@ import java.util.List;
  * @since 2021-04-03
  */
 public interface AqUserChatMapper extends BaseMapper<AqUserChat> {
-    List<AqUserChat> getLastChatBySessionId(String sessionId);
+
+    LastMessageVo getLastChatBySessionId(String sessionId);
+
+    List<MessageVo> getMessages(String sessionId);
+
+    Date getFirstChatTime(String sessionId);
 }

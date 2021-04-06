@@ -3,11 +3,14 @@
 <mapper namespace="com.jz.aqjianzhi.ws_service.mapper.AqUserContactMapper">
 
     <select id="getAllContact" parameterType="string" resultType="com.jz.aqjianzhi.ws_service.entity.vo.ContactVo">
-      select c.c_id, c.session_id, u.u_mobile, u.u_name, u.u_icon, c.user_contact_id
-      from aq_user as u, aq_user_contact as c
-      where u.u_id = c.user_contact_id
-      and c.user_id=#{arg0};
+      select c.session_id, c.user_contact_id as contactId, u.u_name as contactName, u.u_mobile as contactMobile, u.u_icon as contactIcon
+      from aq_user_contact as c, aq_user as u
+      where c.user_contact_id = u.u_id and c.user_id = #{arg0}
     </select>
 
+    <select id="getUserMessage" parameterType="string" resultType="com.jz.aqjianzhi.ws_service.entity.vo.UserVo">
+        select u_id as userId, u_name as userName, u_mobile as mobile, u_icon as icon
+        from aq_user where u_id = #{arg0}
+    </select>
 
 </mapper>

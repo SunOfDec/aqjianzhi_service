@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jz.aqjianzhi.ws_service.entity.testChat.Message;
 import com.jz.aqjianzhi.ws_service.entity.testChat.MessageUtils;
+import com.jz.aqjianzhi.ws_service.entity.vo.MessageVo;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ public class WebSocketController02Test {
 
     /**
      * 连接建立成功调用的方法
-     *
+     * <p>
      * session 可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据
      */
     @OnOpen
@@ -47,6 +48,9 @@ public class WebSocketController02Test {
 
 
         webSocketSet.put(param, this);//加入map中
+
+
+        System.out.println(webSocketSet);
 
         // 获取所有在线用户账号，推送系统消息
         String message = MessageUtils.getMessage(true, null, getUserId());
@@ -62,21 +66,22 @@ public class WebSocketController02Test {
     private Set<String> getUserId() {
         return webSocketSet.keySet();
     }
+
     /**
      * 推送广播消息
      */
     private void broadcastAllUsers(String message) {
         // 拿到所有的用户名
         Set<String> strings = webSocketSet.keySet();
-        for (String userId : strings) {
+        /*for (String userId : strings) {
             WebSocketController02Test chatEndpoint = webSocketSet.get(userId);
             try {
-                chatEndpoint.WebSocketsession.getBasicRemote().sendText(message);
+                chatEndpoint.WebSocketsession.getBasicRemote().sendText("测试广播发送！");
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-        }
+        }*/
 
     }
 
@@ -93,12 +98,18 @@ public class WebSocketController02Test {
     }
 
     @OnMessage
-    public void onMessage(String msg, Session session) {
+    public void onMessage(String msg, Session session) throws IOException {
         /*System.out.println(msg);
         JSONObject jsonMsg = JSONObject.parseObject(msg);
         System.out.println(jsonMsg);*/
         System.out.println(msg);
-        try {
+        JSONObject jsonMsg = JSONObject.parseObject(msg);
+        MessageVo messageVo = jsonMsg.toJavaObject(MessageVo.class);
+        System.out.println(messageVo);
+        System.out.println(messageVo.getReceiverId());
+        String id = messageVo.getReceiverId();
+        webSocketSet.get(id).WebSocketsession.getBasicRemote().sendText(msg);
+        /*try {
             ObjectMapper mapper = new ObjectMapper();
             Message message = mapper.readValue(msg, Message.class);
             System.out.println(message);
@@ -110,9 +121,8 @@ public class WebSocketController02Test {
             webSocketSet.get(toName).WebSocketsession.getBasicRemote().sendText(res);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
-
 
 
     public static synchronized int getOnlineCount() {

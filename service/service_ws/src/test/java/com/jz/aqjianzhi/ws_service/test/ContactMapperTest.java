@@ -1,6 +1,7 @@
 package com.jz.aqjianzhi.ws_service.test;
 
 import com.jz.aqjianzhi.ws_service.entity.vo.ContactVo;
+import com.jz.aqjianzhi.ws_service.entity.vo.UserVo;
 import com.jz.aqjianzhi.ws_service.mapper.AqUserContactMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,10 +20,16 @@ public class ContactMapperTest {
     private AqUserContactMapper contactMapper;
 
     @Test
-    public void test01() {
+    public void testContactVo() {
         List<ContactVo> allContact = contactMapper.getAllContact("1");
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println(allContact);
+    }
+
+    @Test
+    public void testUserVo() {
+        UserVo userMessage = contactMapper.getUserMessage("1");
+        System.out.println(userMessage);
     }
 
     @Test

@@ -1,8 +1,12 @@
 package com.jz.aqjianzhi.ws_service.entity.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LastMessageVo {
 
     private String content;
@@ -20,4 +24,8 @@ public class LastMessageVo {
     private boolean seen;
 
     private boolean isNew;
+
+    public LastMessageVo(String content) {
+        this.content = content;
+    }
 }

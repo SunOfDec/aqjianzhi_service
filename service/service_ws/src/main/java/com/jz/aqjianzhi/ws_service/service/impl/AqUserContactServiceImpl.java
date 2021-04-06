@@ -2,6 +2,7 @@ package com.jz.aqjianzhi.ws_service.service.impl;
 
 import com.jz.aqjianzhi.ws_service.entity.AqUserContact;
 import com.jz.aqjianzhi.ws_service.entity.vo.ContactVo;
+import com.jz.aqjianzhi.ws_service.entity.vo.UserVo;
 import com.jz.aqjianzhi.ws_service.mapper.AqUserContactMapper;
 import com.jz.aqjianzhi.ws_service.service.AqUserContactService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -23,5 +24,10 @@ public class AqUserContactServiceImpl extends ServiceImpl<AqUserContactMapper, A
     @Override
     public List<ContactVo> getAllContact(String uId) {
         return baseMapper.getAllContact(uId);
+    }
+
+    @Override
+    public UserVo getUserMessage(String uId) {
+        return baseMapper.getUserMessage(uId);
     }
 }

@@ -2,19 +2,19 @@ package com.jz.aqjianzhi.ws_service.entity.vo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class ContactVo {
 
-    private String cId;
-
     private String sessionId;
 
-    private String uMobile;
+    private String contactId;
 
-    private String uName;
+    private String contactName;
 
-    private String uIcon;
+    private String contactMobile;
 
-    private String userContactId;
+    private String contactIcon;
 
 }

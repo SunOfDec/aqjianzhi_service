@@ -3,6 +3,7 @@ package com.jz.aqjianzhi.ws_service.service;
 import com.jz.aqjianzhi.ws_service.entity.AqUserContact;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jz.aqjianzhi.ws_service.entity.vo.ContactVo;
+import com.jz.aqjianzhi.ws_service.entity.vo.UserVo;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ import java.util.List;
 public interface AqUserContactService extends IService<AqUserContact> {
 
     List<ContactVo> getAllContact(String uId);
+
+    UserVo getUserMessage(String uId);
 }
