@@ -23,4 +23,6 @@ public interface AqUserChatMapper extends BaseMapper<AqUserChat> {
     List<MessageVo> getMessages(String sessionId);
 
     Date getFirstChatTime(String sessionId);
+
+    int saveChatMessage(String cId, String sessionId, String content, String senderId, String receiverId, Long cLevel, Date timestamp);
 }

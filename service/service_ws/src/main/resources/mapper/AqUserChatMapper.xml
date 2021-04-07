@@ -9,12 +9,19 @@
     </select>
 
     <select id="getMessages" parameterType="string" resultType="com.jz.aqjianzhi.ws_service.entity.vo.MessageVo">
-        select c_id as _id, c_message as content, c_send_user_id as senderId, create_time as 'timestamp'
+        select c_id as _id, c_message as content, c_send_user_id as senderId, create_time as 'timestamp',
+        c_level
         from aq_user_chat
-        where session_id = #{arg0};
+        where session_id = #{arg0}
+        order by c_level asc;
     </select>
 
     <select id="getFirstChatTime" parameterType="string" resultType="date">
         select min(create_time) from aq_user_chat where session_id=#{arg0};
     </select>
+
+    <insert id="saveChatMessage">
+        insert into aq_user_chat(c_id, session_id, c_message, c_send_user_id, c_receive_user_id, c_level, create_time, update_time)
+        values(#{arg0}, #{arg1}, #{arg2}, #{arg3}, #{arg4}, #{arg5}, #{arg6}, #{arg6})
+    </insert>
 </mapper>

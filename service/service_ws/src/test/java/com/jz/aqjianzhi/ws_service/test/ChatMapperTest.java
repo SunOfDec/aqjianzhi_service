@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,5 +43,20 @@ public class ChatMapperTest {
     public void testGetFirstTime() {
         Date firstChatTime = chatMapper.getFirstChatTime("1bbcdc49f7d3414887d93a292d04f29d");
         System.out.println(firstChatTime);
+    }
+
+    @Test
+    public void saveChatMessage() {
+
+        /*Date dd=new Date();
+        //格式化
+        SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time=sim.format(dd);*/
+
+
+        int test = chatMapper.saveChatMessage("111", "1bbcdc49f7d3414887d93a292d04f29d",
+                "test", "1", "2", Long.parseLong("1"),
+                new Date());
+        System.out.println(test);
     }
 }

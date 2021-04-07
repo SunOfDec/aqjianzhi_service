@@ -23,6 +23,8 @@ public class MessageVo {
 
     private Date timestamp;
 
+    private boolean system;
+
     private boolean saved;
 
     private boolean distributed;
@@ -32,4 +34,8 @@ public class MessageVo {
     private boolean disableActions;
 
     private boolean disableReactions;
+
+    private String sessionId;
+
+    private Long cLevel;
 }

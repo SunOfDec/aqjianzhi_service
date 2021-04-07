@@ -15,6 +15,7 @@ public class MessageUtils {
             }
             ObjectMapper mapper = new ObjectMapper();
 
+
             return mapper.writeValueAsString(result);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

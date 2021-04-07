@@ -1,10 +1,15 @@
 package com.jz.aqjianzhi.ws_service.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jz.aqjianzhi.ws_service.entity.testChat.Message;
 import com.jz.aqjianzhi.ws_service.entity.testChat.MessageUtils;
+import com.jz.aqjianzhi.ws_service.entity.testChat.ResultMessage;
 import com.jz.aqjianzhi.ws_service.entity.vo.MessageVo;
+import com.jz.aqjianzhi.ws_service.service.AqUserChatService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +17,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,6 +25,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Controller
 @ServerEndpoint("/websocket/{uId}")
 public class WebSocketController02Test {
+
+    // 这里使用静态，让 service 属于类
+    private static AqUserChatService chatService;
+    @Autowired
+    public void setChatService(AqUserChatService service) {
+        WebSocketController02Test.chatService = service;
+    }
 
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
@@ -98,30 +111,60 @@ public class WebSocketController02Test {
     }
 
     @OnMessage
-    public void onMessage(String msg, Session session) throws IOException {
-        /*System.out.println(msg);
-        JSONObject jsonMsg = JSONObject.parseObject(msg);
-        System.out.println(jsonMsg);*/
-        System.out.println(msg);
+    public void onMessage(String msg, Session session) {
+        // 将客户端发送来的消息转换为Java对象
         JSONObject jsonMsg = JSONObject.parseObject(msg);
         MessageVo messageVo = jsonMsg.toJavaObject(MessageVo.class);
-        System.out.println(messageVo);
-        System.out.println(messageVo.getReceiverId());
+        // 设置统一消息返回格式
+        ResultMessage resultMessage = new ResultMessage();
+        // 获取接收者id
         String id = messageVo.getReceiverId();
-        webSocketSet.get(id).WebSocketsession.getBasicRemote().sendText(msg);
-        /*try {
-            ObjectMapper mapper = new ObjectMapper();
-            Message message = mapper.readValue(msg, Message.class);
-            System.out.println(message);
 
-            String toName = message.getToName();
-            String data = message.getMessage();
-            String res = MessageUtils.getMessage(false, this.uid, data);
-            // 发送数据
-            webSocketSet.get(toName).WebSocketsession.getBasicRemote().sendText(res);
-        } catch (Exception e) {
+        String id1 = messageVo.get_id();
+        String sessionId = messageVo.getSessionId();
+        Long cLevel = messageVo.getCLevel();
+        String content = messageVo.getContent();
+        Date timestamp = messageVo.getTimestamp();
+        String senderId = messageVo.getSenderId();
+        String receiverId = messageVo.getReceiverId();
+
+        int i = chatService.saveChatMessage(id1, sessionId, content, senderId, receiverId, cLevel, timestamp);
+        System.out.println("添加数据.................");
+        System.out.println(i);
+
+
+        try {
+            if (webSocketSet.get(id) != null) {  // 判断接收者是否在线
+                resultMessage.setFromName(this.uid);
+                resultMessage.setMessage(msg);
+                resultMessage.setSystem(false);  // 系统推送通知
+                String res = JSONObject.toJSONStringWithDateFormat(resultMessage, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat);
+
+                webSocketSet.get(id).WebSocketsession.getBasicRemote().sendText(res);
+
+            } else {
+
+
+
+
+                MessageVo messageVo1 = new MessageVo();
+                messageVo1.setSystem(true);
+                String m = JSONObject.toJSONStringWithDateFormat(messageVo1, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat);
+
+                resultMessage.setFromName("-1");  // -1代表系统发送
+                resultMessage.setMessage(m);
+                resultMessage.setSystem(false);  // 系统推送通知
+                String res = JSONObject.toJSONStringWithDateFormat(resultMessage, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat);
+                webSocketSet.get(this.uid).WebSocketsession.getBasicRemote().sendText(res);
+
+            }
+
+
+
+
+        } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 

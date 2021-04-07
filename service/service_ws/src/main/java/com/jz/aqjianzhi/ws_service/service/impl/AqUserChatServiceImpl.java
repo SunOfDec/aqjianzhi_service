@@ -29,4 +29,9 @@ public class AqUserChatServiceImpl extends ServiceImpl<AqUserChatMapper, AqUserC
     public Date getFirstChatTime(String sessionId) {
         return baseMapper.getFirstChatTime(sessionId);
     }
+
+    @Override
+    public int saveChatMessage(String cId, String sessionId, String content, String senderId, String receiverId, Long cLevel, Date timestamp) {
+        return baseMapper.saveChatMessage(cId, sessionId, content, senderId, receiverId, cLevel, timestamp);
+    }
 }

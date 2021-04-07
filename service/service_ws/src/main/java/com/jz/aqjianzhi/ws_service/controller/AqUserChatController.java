@@ -39,7 +39,8 @@ public class AqUserChatController {
     public R getMessage(@PathVariable String sessionId) {
         // 根据sessionId获取数据库中的聊天信息
         QueryWrapper<AqUserChat> wrapper = new QueryWrapper<>();
-        wrapper.eq("session_id", sessionId);
+        wrapper.eq("session_id", sessionId).orderByAsc("c_level");
+
         List<AqUserChat> userChatMessages = chatService.list(wrapper);
         // 获取开始聊天的时间
         Date firstChatTime = chatService.getFirstChatTime(sessionId);
@@ -62,6 +63,9 @@ public class AqUserChatController {
             messageVo.setAvatar(userMessage.getIcon());
             messageVo.setDate(firstChatTime);
             messageVo.setTimestamp(userChatMessage.getCreateTime());
+
+            messageVo.setSessionId(sessionId);
+            messageVo.setCLevel(userChatMessage.getCLevel());
 
             messageVo.setSeen(true);
 
