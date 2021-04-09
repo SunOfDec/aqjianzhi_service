@@ -4,6 +4,7 @@ import com.jz.aqjianzhi.ws_service.entity.AqUserContact;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jz.aqjianzhi.ws_service.entity.vo.ContactVo;
 import com.jz.aqjianzhi.ws_service.entity.vo.UserVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ import java.util.List;
 public interface AqUserContactMapper extends BaseMapper<AqUserContact> {
 
 
-    List<ContactVo> getAllContact(String uId);
+    List<ContactVo> getAllContact(@Param("uId") String uId);
 
-    UserVo getUserMessage(String uId);
+    UserVo getUserMessage(@Param("uId") String uId);
 
 
 }

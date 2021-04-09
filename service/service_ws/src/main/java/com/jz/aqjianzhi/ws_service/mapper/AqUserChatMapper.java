@@ -4,6 +4,7 @@ import com.jz.aqjianzhi.ws_service.entity.AqUserChat;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jz.aqjianzhi.ws_service.entity.vo.LastMessageVo;
 import com.jz.aqjianzhi.ws_service.entity.vo.MessageVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -18,11 +19,17 @@ import java.util.List;
  */
 public interface AqUserChatMapper extends BaseMapper<AqUserChat> {
 
-    LastMessageVo getLastChatBySessionId(String sessionId);
+    LastMessageVo getLastChatBySessionId(@Param("sessionId") String sessionId);
 
-    List<MessageVo> getMessages(String sessionId);
+    List<MessageVo> getMessages(@Param("sessionId") String sessionId);
 
-    Date getFirstChatTime(String sessionId);
+    Date getFirstChatTime(@Param("sessionId") String sessionId);
 
-    int saveChatMessage(String cId, String sessionId, String content, String senderId, String receiverId, Long cLevel, Date timestamp);
+    int saveChatMessage(@Param("cId") String cId,
+                        @Param("sessionId") String sessionId,
+                        @Param("content") String content,
+                        @Param("senderId") String senderId,
+                        @Param("receiverId") String receiverId,
+                        @Param("cLevel") Long cLevel,
+                        @Param("timestamp") Date timestamp);
 }

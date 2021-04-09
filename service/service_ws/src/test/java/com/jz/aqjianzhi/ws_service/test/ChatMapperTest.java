@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ChatMapperTest {
 
@@ -48,10 +48,10 @@ public class ChatMapperTest {
     @Test
     public void saveChatMessage() {
 
-        /*Date dd=new Date();
+        *//*Date dd=new Date();
         //格式化
         SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time=sim.format(dd);*/
+        String time=sim.format(dd);*//*
 
 
         int test = chatMapper.saveChatMessage("111", "1bbcdc49f7d3414887d93a292d04f29d",
@@ -59,4 +59,4 @@ public class ChatMapperTest {
                 new Date());
         System.out.println(test);
     }
-}
+}*/

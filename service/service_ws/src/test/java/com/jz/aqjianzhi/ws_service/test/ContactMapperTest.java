@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ContactMapperTest {
 
@@ -37,4 +37,4 @@ public class ContactMapperTest {
         String s = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         System.out.println(s);
     }
-}
+}*/

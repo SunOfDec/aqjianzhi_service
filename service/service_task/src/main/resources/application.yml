@@ -7,9 +7,9 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/chat?serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/aqjianzhi?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
     username: root
-    password: hahaha
+    password: root
   redis:
     host: 39.105.58.223
     port: 6379

@@ -40,6 +40,8 @@ public class AqUserChat implements Serializable {
 
     private String cReceiveUserId;
 
+    private boolean isRead;
+
     @TableField(fill = FieldFill.INSERT)  // 自动填充
     private Date createTime;
 

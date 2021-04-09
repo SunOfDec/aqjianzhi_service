@@ -11,9 +11,7 @@ import com.jz.aqjianzhi.ws_service.service.AqUserContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -68,9 +66,6 @@ public class AqUserContactController {
     @GetMapping("/getAllContactByUId/{uId}")
     public R getAllContactByUId(@PathVariable String uId) {
 
-        /*QueryWrapper<AqUserContact> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", uId);
-        List<AqUserContact> list = userContactService.list(wrapper);*/
         List<ContactVo> allContact = userContactService.getAllContact(uId);
         UserVo userMessage = userContactService.getUserMessage(uId);
 
@@ -83,7 +78,10 @@ public class AqUserContactController {
             chatRoomVo.setRoomId(sessionId);
             chatRoomVo.setRoomName(contact.getContactName());
             chatRoomVo.setAvatar(contact.getContactIcon());
-            chatRoomVo.setUnreadCount(0);  // 待完善
+            QueryWrapper<AqUserChat> wrapper = new QueryWrapper<>();
+            wrapper.eq("session_id", sessionId).eq("is_read", 0)
+                    .eq("c_receive_user_id", uId);
+            chatRoomVo.setUnreadCount(userChatService.count(wrapper));
             chatRoomVo.setIndex(n++);  // 待完善
 
             /*最后一条信息*/
@@ -105,17 +103,23 @@ public class AqUserContactController {
                     userMessageVo.setUsername(userMessage.getUserName());
                     userMessageVo.setAvatar(userMessage.getIcon());
 
-                    /*userStatusVo.setState("online");
-                    userStatusVo.setLastChanged("00:00:00");*/
+                    userStatusVo.setState("online");
+                    /*userStatusVo.setLastChanged("00:00:00");*/
                     userMessageVo.setStatus(userStatusVo);
                 } else {
                     // 联系人信息
-                    userMessageVo.set_id(contact.getContactId());
+                    String cId = contact.getContactId();
+                    userMessageVo.set_id(cId);
                     userMessageVo.setUsername(contact.getContactName());
                     userMessageVo.setAvatar(contact.getContactIcon());
 
-                    /*userStatusVo.setState("online");
-                    userStatusVo.setLastChanged("00:00:00");*/
+                    /*if (onlineUsers.get(cId) != null) {
+                        userStatusVo.setState("online");
+                    } else {
+                        userStatusVo.setState("offline");
+                    }*/
+                    userStatusVo.setState("offline");
+                    /*userStatusVo.setLastChanged("00:00:00");*/
                     userMessageVo.setStatus(userStatusVo);
                 }
                 userMessageVoList.add(userMessageVo);

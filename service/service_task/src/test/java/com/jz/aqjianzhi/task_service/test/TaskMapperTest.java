@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest
 public class TaskMapperTest {
 
@@ -25,4 +25,4 @@ public class TaskMapperTest {
         Page<QueryTaskVo> pageTaskList = taskMapper.pageQueryAllTaskForMultiTable(new Page<>(0, 5));
         System.out.println(pageTaskList);
     }
-}
+}*/
