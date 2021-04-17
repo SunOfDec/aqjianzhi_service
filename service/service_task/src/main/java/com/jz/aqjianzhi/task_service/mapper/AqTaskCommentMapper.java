@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jz.aqjianzhi.task_service.entity.AqTaskComment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jz.aqjianzhi.task_service.entity.vo.QueryCommentVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,6 +16,6 @@ import com.jz.aqjianzhi.task_service.entity.vo.QueryCommentVo;
  */
 public interface AqTaskCommentMapper extends BaseMapper<AqTaskComment> {
 
-    Page<QueryCommentVo> pageQueryCommentById(Page<QueryCommentVo> page, String tId);
+    Page<QueryCommentVo> pageQueryCommentById(Page<QueryCommentVo> page, @Param("tId") String tId);
 
 }
